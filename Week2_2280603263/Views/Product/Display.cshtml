@@ -1,0 +1,33 @@
+﻿@model Week2_2280603263.Models.Product
+@{
+    Layout = "~/Views/Product/Details.cshtml";
+}
+
+<h2>Product Details</h2>
+<div>
+    <!-- Hiển thị tên, giá và mô tả -->
+    <h4>Name: @Model.Name</h4>
+    <h4>Price: @Model.Price.ToString("C")</h4>  <!-- Format tiền tệ -->
+    <h4>Description: @Model.Description</h4>
+
+    <!-- Hiển thị ảnh chính -->
+    <p>Main Image:</p>
+    <img src="@Model.ImageUrl" alt="Product Image" style="width: 300px; height: auto; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);" />
+
+    <!-- Kiểm tra và hiển thị ảnh phụ -->
+    @if (Model.ImageUrls != null && Model.ImageUrls.Any())
+    {
+        <h4>Additional Images:</h4>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            @foreach (var imageUrl in Model.ImageUrls)
+            {
+                <div>
+                    <img src="@imageUrl" alt="Additional Image" style="width: 150px; height: auto; border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);" />
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- Nút quay lại -->
+<a asp-action="Index" class="btn btn-primary mt-3">Back to List</a>

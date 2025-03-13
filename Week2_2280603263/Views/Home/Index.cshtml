@@ -1,0 +1,21 @@
+﻿@model List<Week2_2280603263.Models.Product>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="product-list">
+    @foreach (var product in Model)
+    {
+        <div class="product-card">
+            <img src="@Url.Content($"~/images/{product.Name.Split(' ')[1]}.jpg")" alt="@product.Name" class="product-image">
+            <h2 class="product-title">@product.Name</h2>
+            <p class="product-description">@product.Description</p>
+            <p class="product-price">Giá: @product.Price.ToString("C0", System.Globalization.CultureInfo.GetCultureInfo("vi-VN"))</p>
+            <button class="button button4">Mua Ngay</button>
+        </div>
+    }
+</div>
+
+
+
+

@@ -1,0 +1,78 @@
+﻿@model Week2_2280603263.Models.Product
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Product Images -->
+        <div class="col-md-6">
+            <img src="@Url.Content(Model.ImageUrl)" alt="Product Image" class="img-fluid rounded mb-3" id="mainImage">
+            <div class="d-flex justify-content-between">
+                @if (Model.ImageUrls != null && Model.ImageUrls.Any())
+                {
+                    @foreach (var img in Model.ImageUrls)
+                    {
+                        <img src="@Url.Content(img)" alt="Thumbnail" class="thumbnail rounded" onclick="changeImage(event, this.src)">
+                    }
+                }
+            </div>
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-md-6">
+            <h2 class="mb-3">@Model.Name</h2>
+            <p class="text-muted mb-2">Mã sản phẩm: @Model.Id</p>
+            <div class="mb-3">
+                <span class="h4 text-danger">@Model.Price.ToString("N0") VNĐ</span>
+            </div>
+            <p class="mb-4">@Model.Description</p>
+
+            <!-- Số lượng -->
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Số lượng:</label>
+                <input type="number" class="form-control" id="quantity" value="1" min="1" style="width: 80px;">
+            </div>
+
+            <!-- Nút Thêm vào giỏ hàng & Yêu thích -->
+            <button class="btn btn-primary btn-lg mb-3 me-2">
+                <i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng
+            </button>
+            <button class="btn btn-outline-secondary btn-lg mb-3">
+                <i class="bi bi-heart"></i> Yêu thích
+            </button>
+        </div>
+    </div>
+
+    <main>
+        @RenderBody();
+    </main>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JS đổi ảnh -->
+<script>
+    function changeImage(event, src) {
+        document.getElementById('mainImage').src = src;
+        document.querySelectorAll('.thumbnail').forEach(thumb => thumb.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+</script>
+
+<style>
+    .thumbnail {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+    }
+
+        .thumbnail:hover, .thumbnail.active {
+            opacity: 1;
+        }
+</style>
